@@ -12,5 +12,5 @@ module CommonHelper
   end
 end
 
-Itamae::Recipe::EvalContext.send(:include, CommonHelper)
-Itamae::Resource::Base::EvalContext.send(:include, CommonHelper)
+Itamae::Recipe::EvalContext.include(CommonHelper)
+Itamae::Resource::Base::EvalContext.include(CommonHelper)
