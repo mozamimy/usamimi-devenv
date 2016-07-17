@@ -1,42 +1,40 @@
 require 'pathname'
+require_relative '../../itamae_helper'
 
-USER = node[:user][:name]
-HOMEDIR_PATH = Pathname.new('/home') + USER
-
-user USER do
+user user_name do
   password node[:user][:password]
-  home HOMEDIR_PATH.to_s
+  home homedir_path.to_s
 end
 
-directory HOMEDIR_PATH.to_s do
-  owner USER
-  group 'users'
+directory homedir_path.to_s do
+  owner user_name
+  group group_name
   mode '744'
 end
 
-directory (HOMEDIR_PATH + '.ssh').to_s  do
-  owner USER
-  group 'users'
+directory (homedir_path + '.ssh').to_s  do
+  owner user_name
+  group group_name
   mode '700'
 end
 
-remote_file (HOMEDIR_PATH + '.ssh' + 'id_rsa.pub').to_s do
+remote_file (homedir_path + '.ssh' + 'id_rsa.pub').to_s do
   source node[:user][:pubkey]
-  owner USER
-  group 'users'
+  owner user_name
+  group group_name
   mode '600'
 end
 
-remote_file (HOMEDIR_PATH + '.ssh' + 'authorized_keys').to_s do
+remote_file (homedir_path + '.ssh' + 'authorized_keys').to_s do
   source node[:user][:pubkey]
-  owner USER
-  group 'users'
+  owner user_name
+  group group_name
   mode '600'
 end
 
-remote_file (HOMEDIR_PATH + '.ssh' + 'id_rsa').to_s do
+remote_file (homedir_path + '.ssh' + 'id_rsa').to_s do
   source node[:user][:privatekey]
-  owner USER
-  group 'users'
+  owner user_name
+  group group_name
   mode '600'
 end
