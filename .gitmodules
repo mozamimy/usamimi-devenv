@@ -1,0 +1,3 @@
+[submodule "devenv-nodes"]
+	path = devenv-nodes
+	url = git@github.com:mozamimy/devenv-nodes.git
