@@ -8,4 +8,4 @@ module RecipeHelper
   end
 end
 
-Itamae::Recipe::EvalContext.send(:include, RecipeHelper)
+Itamae::Recipe::EvalContext.include(RecipeHelper)
