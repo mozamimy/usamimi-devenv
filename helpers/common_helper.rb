@@ -10,6 +10,14 @@ module CommonHelper
   def homedir_path
     Pathname.new('/home') + user_name
   end
+
+  def status_dir
+    Pathname.new('/var/itamae_status')
+  end
+
+  def status_file_path(file)
+    status_dir + file
+  end
 end
 
 Itamae::Recipe::EvalContext.include(CommonHelper)
