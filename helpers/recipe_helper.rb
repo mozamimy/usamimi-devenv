@@ -1,3 +1,5 @@
+require 'pathname'
+
 module RecipeHelper
   # FIXME: Fix below code after https://github.com/itamae-kitchen/itamae/pull/218 is merged.
   def directory_recursive(source, *paths, &block)
