@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/mozamimy/itamae-plugin-recipe-rbenv.git
+  revision: 1e37ccf14d73756762695a992f1da1dbb2f151bf
+  specs:
+    itamae-plugin-recipe-rbenv (0.6.2)
+      itamae (~> 1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -40,6 +47,7 @@ PLATFORMS
 DEPENDENCIES
   highline
   itamae
+  itamae-plugin-recipe-rbenv!
   pry-byebug
 
 BUNDLED WITH
