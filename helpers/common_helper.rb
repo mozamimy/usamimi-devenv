@@ -18,6 +18,10 @@ module CommonHelper
   def status_file_path(file)
     status_dir + file
   end
+
+  def hostname
+    node[:host][:name]
+  end
 end
 
 Itamae::Recipe::EvalContext.include(CommonHelper)

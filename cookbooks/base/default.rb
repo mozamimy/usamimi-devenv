@@ -27,9 +27,27 @@ Server = http://repo.archlinux.fr/$arch
 CONF
 
 execute "echo #{addition_of_pacman_conf} >> /etc/pacman.conf" do
-  not_if 'grep /etc/pacman.conf "[archlinuxfr]"'
+  not_if 'cat /etc/pacman.conf | grep "\[archlinuxfr\]"'
 end
 
 execute 'pacman --sync --refresh --noconfirm yaourt' do
   not_if 'pacman -Qi yaourt'
+end
+
+# set locale
+execute 'timedatectl set-timezone Asia/Tokyo' do
+  not_if 'timedatectl status | grep JST'
+end
+
+execute "hostname #{hostname}" do
+  not_if "hostname | grep #{hostname}"
+end
+
+# set hostname
+execute "echo '#{hostname}' > /etc/hostname" do
+  not_if "cat /etc/hostname | grep #{hostname}"
+end
+
+execute "echo -e '\n127.0.0.1 #{hostname}' >> /etc/hosts" do
+  not_if "cat /etc/hosts | grep #{hostname}"
 end
