@@ -20,3 +20,10 @@ RC_FILES.each do |rc_file|
     to (REPOSITORY_PATH + rc_file).to_s
   end
 end
+
+BASH_PROFILE_PATH = homedir_path + '.bash_profile'
+
+execute "echo 'source ~/.bashrc' >> '#{BASH_PROFILE_PATH}'" do
+  user user_name
+  not_if "cat #{BASH_PROFILE_PATH} | grep 'source ~/.bashrc'"
+end
