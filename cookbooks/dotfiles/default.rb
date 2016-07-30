@@ -12,6 +12,14 @@ end
 git REPOSITORY_PATH.to_s do
   repository 'https://github.com/mozamimy/dotfiles.git'
   user user_name
+  not_if "test -d #{REPOSITORY_PATH}"
+end
+
+# NOTE: Because a passphrase is asked if we use SSH to pull dotfiles repository.
+execute 'git remote set-url origin git@github.com:mozamimy/dotfiles.git' do
+  user user_name
+  cwd REPOSITORY_PATH.to_s
+  not_if "git remote -v | grep 'git@github.com:mozamimy/dotfiles.git'"
 end
 
 RC_FILES.each do |rc_file|
