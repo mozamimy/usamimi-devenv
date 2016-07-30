@@ -63,3 +63,12 @@ end
 execute "echo -e '\n127.0.0.1 #{hostname}' >> /etc/hosts" do
   not_if "cat /etc/hosts | grep #{hostname}"
 end
+
+# grub
+execute 'sed -i -e "s/GRUB_DEFAULT=0/GRUB_DEFAULT=saved/" /etc/default/grub' do
+  only_if 'cat /etc/default/grub | grep -E "GRUB_DEFAULT=0"'
+end
+
+execute 'sed -i -e "s/^#GRUB_SAVEDEFAULT=\"true\"/GRUB_SAVEDEFAULT=\"true\"/" /etc/default/grub' do
+  only_if 'cat /etc/default/grub | grep -E "^#GRUB_SAVEDEFAULT=\"true\""'
+end
