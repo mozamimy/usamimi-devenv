@@ -72,3 +72,6 @@ end
 execute 'sed -i -e "s/^#GRUB_SAVEDEFAULT=\"true\"/GRUB_SAVEDEFAULT=\"true\"/" /etc/default/grub' do
   only_if 'cat /etc/default/grub | grep -E "^#GRUB_SAVEDEFAULT=\"true\""'
 end
+
+# build modules for virtualbox
+package 'virtualbox-host-dkms'
