@@ -39,11 +39,19 @@ execute 'timedatectl set-timezone Asia/Tokyo' do
   not_if 'timedatectl status | grep JST'
 end
 
+execute 'sed -i -e "s/^en_AU.UTF-8 UTF-8/#en_AU.UTF-8 UTF-8/" /etc/locale.gen' do
+  only_if 'cat /etc/locale.gen | grep -E "^en_AU.UTF-8 UTF-8"'
+end
+
+execute 'sed -i -e "s/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/" /etc/locale.gen' do
+  only_if 'cat /etc/locale.gen | grep -E "^#en_US.UTF-8 UTF-8"'
+end
+
+# set hostname
 execute "hostname #{hostname}" do
   not_if "hostname | grep #{hostname}"
 end
 
-# set hostname
 execute "echo '#{hostname}' > /etc/hostname" do
   not_if "cat /etc/hostname | grep #{hostname}"
 end
