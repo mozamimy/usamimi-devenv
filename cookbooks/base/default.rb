@@ -47,6 +47,10 @@ execute 'sed -i -e "s/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/" /etc/locale.gen' d
   only_if 'cat /etc/locale.gen | grep -E "^#en_US.UTF-8 UTF-8"'
 end
 
+execute "locale-gen && touch #{status_file_path('locale-generated')}" do
+  not_if "test -e #{status_file_path('locale-generated')}"
+end
+
 # set hostname
 execute "hostname #{hostname}" do
   not_if "hostname | grep #{hostname}"
